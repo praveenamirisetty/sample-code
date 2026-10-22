@@ -1,0 +1,28 @@
+name: Sample HTML CI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Check HTML File Exists
+        run: test -f sample.html
+
+      - name: Validate HTML
+        run: |
+          echo "Checking sample.html..."
+          grep -q "<html" sample.html
+          grep -q "</html>" sample.html
+          echo "HTML validation successful!"
+
+      - name: Display HTML Content
+        run: cat sample.html
